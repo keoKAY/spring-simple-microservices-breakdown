@@ -1,0 +1,26 @@
+spring:
+    cloud:
+        gateway:
+          server:
+              webflux:
+                routes:
+                  - id: product-service
+                    uri: lb://product-service
+                    predicates:
+                      - Path=/api/v1/products/**
+                    filters:
+                      - StripPrefix=0
+
+                  - id: user-service
+                    uri: http://user-service:8080
+                    predicates:
+                      #- Path=/api/v1/users/**
+                      # because I want to override the path
+                      - Path=/users/**
+                    filters:
+                      #- StripPrefix=0
+                      - RewritePath=/users/(?<segment>.*), /api/v1/users/$\{segment}
+    application:
+      name: api-gateway
+server:
+  port: 8282
