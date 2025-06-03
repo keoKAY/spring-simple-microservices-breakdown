@@ -15,13 +15,16 @@ import java.util.UUID;
 public class UserRestController {
     @GetMapping("/get-all")
     public ResponseEntity<?> getAllUsers(){
-        List<Product> response = new ArrayList<>(); 
-        response.add(Product.builder()
-                .productId(UUID.randomUUID())
-                        .productName("Product 1")
-                .productPrice(100)
-                        .productDescription("This is the product desc ription of the product 1 ")
-                .build());
+        List<UserResponse> response = new ArrayList<>();
+        response.add(
+                UserResponse.builder()
+                        .userId(UUID.randomUUID())
+                        .email("usersample@example.com")
+                        .fullName("Testing User ")
+                        .username("testinguser")
+                        .gender("Male")
+                        .build()
+        );
         return ResponseEntity.ok(response);
     }
 }
