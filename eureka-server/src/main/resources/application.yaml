@@ -1,0 +1,35 @@
+spring:
+    application:
+      name: eureka-server
+eureka:
+  instance:
+    hostname: localhost
+    prefer-ip-address: false
+  server:
+    # disable self-preservation mode in dev
+    enable-self-preservation: false
+    # all default
+    eviction-interval-timer-in-ms: 5000
+    renewal-percent-threshold: 0.85
+    response-cache-auto-expiration-in-seconds: 180
+    response-cache-update-interval-ms: 30000
+  client:
+    # Don't registry itself as client
+    register-with-eureka: false
+    # Don't fetch registry information
+    service-url:
+      defaultZone: http://localhost:8761/eureka/
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health, info , metric
+  endpoint:
+    health:
+      show-details: always
+logging:
+  level:
+    com.netflix.eureka: INFO
+    com.netflix.discovery: INFO
+server:
+  port: 8761

@@ -5,7 +5,8 @@ spring:
               webflux:
                 routes:
                   - id: product-service
-                    uri: http://localhost:8383
+                    # uri: http://localhost:8383
+                    uri: lb://product-service   # load balance URI
                     predicates:
                       - Path=/api/v1/products/**
                     filters:
@@ -21,5 +22,15 @@ spring:
                       - RewritePath=/users/(?<segment>.*), /api/v1/users/$\{segment}
     application:
       name: api-gateway
+# behold the configuration to know which is the eureka server
 server:
-  port: 8282
+  port: 8080
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka
+#      fetch-registry: true
+#      register-with-eureka: true
+#  instance:
+#    prefer-ip-address: true
+#    hostname: localhost

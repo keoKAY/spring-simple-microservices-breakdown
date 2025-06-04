@@ -24,3 +24,7 @@ spring:
       name: api-gateway
 server:
   port: 8282
+eureka:
+  client:
+    service-url:
+      defaultZone: http://eureka-service:8761/eureka
