@@ -1,6 +1,7 @@
 spring:
     cloud:
         gateway:
+
           server:
               webflux:
                 routes:
@@ -10,7 +11,7 @@ spring:
                       - Path=/api/v1/products/**
                     filters:
                       - StripPrefix=0
-
+        
                   - id: user-service
                     uri: http://user-service:8080
                     predicates:
@@ -28,3 +29,8 @@ eureka:
   client:
     service-url:
       defaultZone: http://eureka-service:8761/eureka
+    register-with-eureka: true
+    fetch-registry: true
+  instance:
+    prefer-ip-address: true
+    instance-id: ${spring.application.name}:${server.port}

@@ -1,7 +1,4 @@
 # Production Profile
-spring:
-  profiles: production
-
 eureka:
   instance:
     hostname: eureka-server
