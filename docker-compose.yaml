@@ -1,14 +1,32 @@
 services: 
+  config-server: 
+    image: lyvanna544/breakdown/config-server:latest
+    build: 
+      context: config-server
+    container_name: config-server-cont
+    environment: 
+      - SERVER_PORT=8888
+      - SPRING_PROFILES_ACTIVE=prod
+    networks: 
+      - breakdown_network
+    ports: 
+      - "8888:8888"
   api-gateway: 
+    image: lyvanna544/breakdown/api-gateway:latest
     build: 
       context: api-gateway
     container_name: api-gateway-cont 
+    pull_policy: build 
     environment: 
       - SERVER_PORT=8080
-      - SPRING_PROFILES_ACTIVE=docker
+      - SPRING_PROFILES_ACTIVE=prod
+    restart: always
     ports:
       - "8080:8080"
+    networks: 
+      - breakdown_network
   user-service: 
+    image: lyvanna544/breakdown/user-service:latest
     build: 
       context: user-service 
     container_name:  user-service-cont 
@@ -17,7 +35,10 @@ services:
       - SPRING_PROFILES_ACTIVE=docker
     ports:
       - "8081:8080"
+    networks: 
+      - breakdown_network
   product-service: 
+    image: lyvanna544/breakdown/product-service:latest
     build: 
       context: product-service 
     #container_name:  product-service-cont 
@@ -28,7 +49,10 @@ services:
     #   replicas: 2 
     # ports:
     #   - "8082:8080"
+    networks: 
+      - breakdown_network
   eureka-service: 
+    image: lyvanna544/breakdown/eureka-server:latest
     build: 
       context: eureka-server
     container_name:  eureka-service
@@ -37,3 +61,7 @@ services:
       - SPRING_PROFILES_ACTIVE=docker
     ports:
       - "8761:8761"
+    networks: 
+      - breakdown_network
+networks:
+  breakdown_network: 

@@ -1,0 +1,9 @@
+GIT_CONFIG_REPO: https://github.com/keoKAY/spring-micro-breakdowns-config-repo.git
+GIT_CONFIG_BRANCH: main
+spring:
+  profiles:
+    active: prod
+eureka:
+  client:
+    service-url:
+      defaultZone: http://eureka-server:8761/eureka
