@@ -58,7 +58,7 @@ services:
     container_name:  eureka-service
     environment: 
       - SERVER_PORT=8761
-      - SPRING_PROFILES_ACTIVE=docker
+      - SPRING_PROFILES_ACTIVE=prod
     ports:
       - "8761:8761"
     networks: 

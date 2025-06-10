@@ -7,5 +7,5 @@ spring:
     config:
       uri: http://localhost:8888
       name: api-gateway
-      profile: default
+      profile: docker
       fail-fast: true

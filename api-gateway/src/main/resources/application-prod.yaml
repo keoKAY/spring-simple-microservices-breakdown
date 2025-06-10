@@ -6,6 +6,6 @@ spring:
     cloud:
       config:
         uri: http://config-server:8888
-        name: api-gateway
-        profile: dev
+        name: api_gateway
+        profile: docker
         fail-fast: true 

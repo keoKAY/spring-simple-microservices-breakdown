@@ -12,7 +12,7 @@ spring:
                       - StripPrefix=0
         
                   - id: user-service
-                    uri: http://user-service:8080
+                    uri: lb://user-service
                     predicates:
                       #- Path=/api/v1/users/**
                       # because I want to override the path
