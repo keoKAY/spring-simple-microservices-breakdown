@@ -63,5 +63,29 @@ services:
       - "8761:8761"
     networks: 
       - breakdown_network
+
+# configuration for the vault 
+  vault: 
+    image: hashicorp/vault:latest 
+    container_name: vault 
+    ports: 
+      - "8200:8200"
+    environment:
+      VAULT_DEV_ROOT_TOKEN_ID: myroot 
+      VAULT_DEV_LISTEN_ADDRESS: "0.0.0.0:8200"
+    
+    # without it when RAM , then  -> swap FILE on disk ( secrets exposed )
+    # 
+    cap_add:
+      - IPC_LOCK 
+    command: server -dev -dev-root-token-id=myroot
+    volumes:
+      - vault-data:/vault/data
+      - vault-log:/vault/logs
+    networks: 
+      - breakdown_network
+volumes:
+  vault-data: 
+  vault-log: 
 networks:
   breakdown_network: 

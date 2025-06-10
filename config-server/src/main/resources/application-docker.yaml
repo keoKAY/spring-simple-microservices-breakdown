@@ -1,8 +1,8 @@
 server:
   port: 8888
 spring:
-#  profiles:
-#    active: git
+ profiles:
+   active: git, vault
   application:
     name: config-server
   cloud:
@@ -14,4 +14,12 @@ spring:
           search-paths:
             - config
             - '{application}'
-          clone-on-start: true # clone the repo when server start
+          clone-on-start: true # clone the repo when server start 
+        vault:
+          host: vault
+          port: 8200
+          authentication: TOKEN
+          token: ${VAULT_TOKEN}
+          backend: secret
+          kv-version: 2
+          profile-separator: '/'
