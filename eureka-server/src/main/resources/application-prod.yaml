@@ -7,5 +7,5 @@ spring:
     config:
       uri: http://config-server:8888
       name: eureka-server
-      profile: default
+      profile: dev
       fail-fast: true
