@@ -6,7 +6,7 @@ services:
     container_name: config-server-cont
     environment: 
       - SERVER_PORT=8888
-     # - SPRING_PROFILES_ACTIVE=default
+     # - SPRING_PROFILES_ACTIVE=default 
     networks: 
       - breakdown_network
     ports: 
