@@ -6,7 +6,7 @@ services:
     container_name: config-server-cont
     environment: 
       - SERVER_PORT=8888
-      - SPRING_PROFILES_ACTIVE=prod
+     # - SPRING_PROFILES_ACTIVE=default
     networks: 
       - breakdown_network
     ports: 
@@ -44,7 +44,7 @@ services:
     #container_name:  product-service-cont 
     environment: 
       - SERVER_PORT=8080
-      - SPRING_PROFILES_ACTIVE=docker
+      - SPRING_PROFILES_ACTIVE=default
     # deploy:
     #   replicas: 2 
     # ports:

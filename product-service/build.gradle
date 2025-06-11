@@ -28,6 +28,10 @@ dependencies {
     // https://mvnrepository.com/artifact/org.springframework.cloud/spring-cloud-starter-netflix-eureka-client
     implementation("org.springframework.cloud:spring-cloud-starter-netflix-eureka-client:4.3.0")
 
+    implementation("org.springframework.cloud:spring-cloud-config-client:4.2.1")
+    implementation 'org.springframework.cloud:spring-cloud-starter-vault-config:4.2.1'
+
+    // Necessary configuration for connecting to the database
     compileOnly 'org.projectlombok:lombok'
     annotationProcessor 'org.projectlombok:lombok'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'

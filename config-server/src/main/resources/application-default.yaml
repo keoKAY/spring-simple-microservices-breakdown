@@ -1,0 +1,10 @@
+GIT_CONFIG_REPO: https://github.com/keoKAY/spring-micro-breakdowns-config-repo.git
+GIT_CONFIG_BRANCH: main
+VAULT_TOKEN: myroot
+spring:
+  profiles:
+    active: docker
+eureka:
+  client:
+    service-url:
+      defaultZone: http://eureka-service:8761/eureka

@@ -1,10 +1,30 @@
-GIT_CONFIG_REPO: https://github.com/keoKAY/spring-micro-breakdowns-config-repo.git
-GIT_CONFIG_BRANCH: main
-VAULT_TOKEN: myroot
+# GIT_CONFIG_REPO: https://github.com/keoKAY/spring-micro-breakdowns-config-repo.git
+# GIT_CONFIG_BRANCH: main
+# VAULT_TOKEN: myroot
+
+server:
+  port: 8888
 spring:
   profiles:
-    active: docker
-eureka:
-  client:
-    service-url:
-      defaultZone: http://eureka-service:8761/eureka
+   active: git , vault
+  application:
+    name: config-server
+  cloud:
+    config:
+      server:
+        git:
+          uri: https://github.com/keoKAY/spring-micro-breakdowns-config-repo.git
+          default-label: main
+          search-paths:
+            - config
+            - '{application}'
+          clone-on-start: true # clone the repo when server start 
+        vault:
+          host: vault
+          port: 8200
+          authentication: TOKEN
+          token: myroot
+          backend: secret
+          kv-version: 2
+          profile-separator: '/'
+          scheme: http
