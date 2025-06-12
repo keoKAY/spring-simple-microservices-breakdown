@@ -7,5 +7,5 @@ spring:
     config:
       uri: http://config-server:8888
       name: eureka-server
-      profile: dev
+      profile: docker
       fail-fast: true

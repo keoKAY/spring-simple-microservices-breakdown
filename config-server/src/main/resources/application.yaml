@@ -28,3 +28,7 @@ spring:
           kv-version: 2
           profile-separator: '/'
           scheme: http
+eureka:
+  client:
+    service-url:
+      defaultZone: http://eureka-service:8761/eureka

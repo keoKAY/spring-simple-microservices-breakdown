@@ -9,6 +9,8 @@ services:
      # - SPRING_PROFILES_ACTIVE=default 
     networks: 
       - breakdown_network
+    depends_on: 
+      - vault
     ports: 
       - "8888:8888"
   api-gateway: 
@@ -23,6 +25,8 @@ services:
     restart: always
     ports:
       - "8080:8080"
+    depends_on: 
+      - eureka-service 
     networks: 
       - breakdown_network
   user-service: 
@@ -61,10 +65,14 @@ services:
       - SPRING_PROFILES_ACTIVE=prod
     ports:
       - "8761:8761"
+    restart: on-failure
+    depends_on: 
+      - config-server
     networks: 
       - breakdown_network
 
 # configuration for the vault 
+# We will lose data due to the dev mode, 
   vault: 
     image: hashicorp/vault:latest 
     container_name: vault 
@@ -73,7 +81,6 @@ services:
     environment:
       VAULT_DEV_ROOT_TOKEN_ID: myroot 
       VAULT_DEV_LISTEN_ADDRESS: "0.0.0.0:8200"
-    
     # without it when RAM , then  -> swap FILE on disk ( secrets exposed )
     # 
     cap_add:
