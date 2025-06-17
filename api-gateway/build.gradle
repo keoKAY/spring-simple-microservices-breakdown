@@ -35,11 +35,17 @@ dependencies {
     // Adding the actuator for healthcheck
     implementation 'org.springframework.boot:spring-boot-starter-actuator'
 
-    implementation 'org.springframework.cloud:spring-cloud-starter-circuitbreaker-reactor-resilience4j'
+    // this is one is the one that working fine
+   //implementation 'org.springframework.cloud:spring-cloud-starter-circuitbreaker-reactor-resilience4j'
+    // https://mvnrepository.com/artifact/io.github.resilience4j/resilience4j-spring-boot3
+    implementation("io.github.resilience4j:resilience4j-spring-boot3:2.3.0")
+    implementation("org.springframework.boot:spring-boot-starter-aop")
+
+
     // https://mvnrepository.com/artifact/io.github.resilience4j/resilience4j-spring-boot2
     //implementation("io.github.resilience4j:resilience4j-spring-boot2:2.3.0")
    // implementation "org.springframework.cloud:spring-cloud-starter-circuitbreaker-resilience4j"
-    //implementation "org.springframework.boot:spring-boot-starter-data-redis-reactive" // for rate limiting
+    implementation "org.springframework.boot:spring-boot-starter-data-redis-reactive" // for rate limiting
 
     compileOnly 'org.projectlombok:lombok'
     annotationProcessor 'org.projectlombok:lombok'
