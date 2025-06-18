@@ -1,11 +1,43 @@
-## NOTE
 
 
-```bash 
-docker compose up --scale product-service=2 -d
+```bash
+docker run -d --name zookeeper -p 2181:2181 zookeeper
+docker run -d --name kafka -p 9092:9092 \
+  -e KAFKA_ZOOKEEPER_CONNECT=zookeeper:2181 \
+  -e KAFKA_ADVERTISED_LISTENERS=PLAINTEXT://localhost:9092 \
+  -e KAFKA_LISTENERS=PLAINTEXT://0.0.0.0:9092 \
+  --link zookeeper \
+  confluentinc/cp-kafka
+
 ```
+##### Requirement: 
+- spring web 
+- spring kafka 
 
 
-## PROBLEM notes 
+* configuration for the yaml fle 
+```yaml 
+spring:
+  kafka:
+    bootstrap-servers: localhost:9092
+    producer:
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.apache.kafka.common.serialization.StringSerializer
 
-* Caused by: org.springframework.web.client.HttpServerErrorException$InternalServerError: 500  on GET request for "http://config-server:8888/api_gateway/resilience": "{"timestamp":"2025-06-12T04:27:45.195+00:00","status":500,"error":"Internal Server Error","path":"/api_gateway/resilience"}"
+```
+```java
+@Service
+public class KafkaProducerService {
+
+    private final KafkaTemplate<String, String> kafkaTemplate;
+
+    public KafkaProducerService(KafkaTemplate<String, String> kafkaTemplate) {
+        this.kafkaTemplate = kafkaTemplate;
+    }
+
+    public void sendMessage(String message) {
+        kafkaTemplate.send("test-topic", message);
+    }
+}
+
+```
