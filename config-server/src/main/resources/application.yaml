@@ -13,8 +13,8 @@ spring:
     config:
       server:
         git:
-          uri: https://github.com/keoKAY/spring-micro-breakdowns-config-repo.git
-          default-label: main
+          uri: https://github.com/keoKAY/microservice-config-repo-sample.git
+          default-label: master
           search-paths:
             - config
             - '{application}'
