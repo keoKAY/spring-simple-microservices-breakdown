@@ -9,5 +9,5 @@ spring:
       name: eureka-server
       profile: dev
       fail-fast: true
-server:
-  port: 8888
+#server:
+#  port: 8181

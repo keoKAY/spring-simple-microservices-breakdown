@@ -30,6 +30,8 @@ dependencies {
 
     implementation("org.springframework.cloud:spring-cloud-config-client:4.2.1")
     implementation 'org.springframework.cloud:spring-cloud-starter-vault-config:4.2.1'
+    implementation 'org.springframework.kafka:spring-kafka'
+    // Adding kafka in order to acts of the messagequeue
 
     // Necessary configuration for connecting to the database
     compileOnly 'org.projectlombok:lombok'

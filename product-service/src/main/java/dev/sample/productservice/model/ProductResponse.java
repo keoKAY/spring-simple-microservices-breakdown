@@ -1,4 +1,4 @@
-package dev.sample.productservice;
+package dev.sample.productservice.model;
 
 
 import lombok.AllArgsConstructor;

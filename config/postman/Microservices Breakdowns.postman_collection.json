@@ -1,0 +1,170 @@
+{
+	"info": {
+		"_postman_id": "676c6e07-35ed-45e9-866b-5460bd65a2c7",
+		"name": "Microservices Breakdowns",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "46018092"
+	},
+	"item": [
+		{
+			"name": "config-server",
+			"item": [
+				{
+					"name": "user-service",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8888/user-service/default",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8888",
+							"path": [
+								"user-service",
+								"default"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "product-service",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8888/product-service/default",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8888",
+							"path": [
+								"product-service",
+								"default"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "api-gateway",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{config-server-url}}/api_gateway/resilience",
+							"host": [
+								"{{config-server-url}}"
+							],
+							"path": [
+								"api_gateway",
+								"resilience"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "api-gateway",
+			"item": [
+				{
+					"name": "get-all-users",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{api-gateway-url}}/users/get-all",
+							"host": [
+								"{{api-gateway-url}}"
+							],
+							"path": [
+								"users",
+								"get-all"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get-all-products",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{api-gateway-url}}/api/v1/products/get-all",
+							"host": [
+								"{{api-gateway-url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"products",
+								"get-all"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "create-product",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{api-gateway-url}}/api/v1/products/create-new",
+							"host": [
+								"{{api-gateway-url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"products",
+								"create-new"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "config-server-url",
+			"value": "localhost:8888",
+			"type": "string"
+		},
+		{
+			"key": "api-gateway-url",
+			"value": "localhost:8080",
+			"type": "string"
+		}
+	]
+}

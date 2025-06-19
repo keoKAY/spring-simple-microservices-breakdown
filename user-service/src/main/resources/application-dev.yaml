@@ -1,6 +1,11 @@
 server:
   port: 8081
 spring:
+  kafka:
+    bootstrap-servers: kafka:9092
+    consumer:
+      group-id: my-group
+      auto-offset-reset: earliest
   config:
     import: "optional:configserver:http://localhost:8888"
   application:

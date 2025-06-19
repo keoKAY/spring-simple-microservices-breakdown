@@ -30,3 +30,4 @@ spring:
             default-context: product-service
             profile-separator: '/'
             application-name: product-service
+  # configuration for accessing the kafka cluster.

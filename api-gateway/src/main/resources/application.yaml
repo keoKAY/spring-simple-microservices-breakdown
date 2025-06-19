@@ -4,13 +4,15 @@
 #  profiles:
 #    active: docker
 spring:
+  profiles:
+    active: prod
   config:
     import: "optional:configserver:http://config-server:8888"
   application:
     name: api-gateway
   cloud:
     config:
-      uri: http://config-server:8888
+      uri: http://localhost:8888
       name: api_gateway
       profile: resilience
       fail-fast: true
