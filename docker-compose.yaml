@@ -60,11 +60,11 @@ services:
       - POSTGRES_PASSWORD=password@2025
     networks:
       - breakdown_network
-  eureka-service: 
+  eureka-server: 
     image: lyvanna544/breakdown/eureka-server:latest
     build: 
       context: eureka-server
-    container_name:  eureka-service
+    container_name:  eureka-server
     environment: 
       - SERVER_PORT=8761
       - SPRING_PROFILES_ACTIVE=prod
