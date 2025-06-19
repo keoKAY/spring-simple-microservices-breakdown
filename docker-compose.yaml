@@ -51,6 +51,15 @@ services:
     #   - "8082:8080"
     networks: 
       - breakdown_network
+  product-db: 
+    image: postgres
+    container_name: product-db
+    environment:
+      - POSTGRES_DB=ecommerce_db
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=password@2025
+    networks:
+      - breakdown_network
   eureka-service: 
     image: lyvanna544/breakdown/eureka-server:latest
     build: 
