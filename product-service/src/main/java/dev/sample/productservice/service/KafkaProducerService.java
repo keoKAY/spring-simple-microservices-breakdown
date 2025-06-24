@@ -2,7 +2,9 @@ package dev.sample.productservice.service;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import dev.sample.productservice.Product;
 import dev.sample.productservice.model.ProductResponse;
+import dev.sample.productservice.model.event.ProductEvent;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.kafka.core.KafkaTemplate;
@@ -22,11 +24,17 @@ public class KafkaProducerService {
         kafkaTemplate.send(TOPIC, message);
     }
 
-    public void sendProductCreatedEvent(ProductResponse product){
+    public void sendProductCreatedEvent(Product product){
         ObjectMapper mapper = new ObjectMapper();
         try {
-            String message = mapper.writeValueAsString(product);
+
+            ProductEvent<Product> productEvent = ProductEvent.<Product>builder()
+                    .data(product)
+                    .eventName("New Product is created ! ")
+                    .build();
+            String message = mapper.writeValueAsString(productEvent);
             kafkaTemplate.send(TOPIC, message);
+
         } catch (JsonProcessingException e) {
             // should handle this better inside the rest controller advisor
             log.info("Something is wrong with kafka event: {}",e.getMessage());

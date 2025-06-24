@@ -1,6 +1,5 @@
 package dev.sample.productservice;
 
-
 import dev.sample.productservice.service.KafkaProducerService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
@@ -23,23 +22,27 @@ public class ProductRestController {
     private String hostname;
 
     @PostMapping("/create-new")
-    public ResponseEntity<?> createProduct(@RequestBody ProductRequest request){
+    public ResponseEntity<?> createProduct(@RequestBody ProductRequest request) {
         Product product = new Product();
         product.setProductName(request.getProductName());
         product.setDescription(request.getDescription());
         product.setPrice(request.getPrice());
-        return ResponseEntity.ok(productRepository.save(product));
+
+        var savedProduct = productRepository.save(product);
+        kafkaProducerService.sendProductCreatedEvent(savedProduct);
+        return ResponseEntity.ok(savedProduct);
     }
+
     @GetMapping("/get-all")
-    public ResponseEntity<?> getAllProducts(){
+    public ResponseEntity<?> getAllProducts() {
         var hashResponse = new HashMap<String, Object>();
-
-        var products = new ArrayList<Product>(productRepository.findAll().stream().toList());
-
-
-            hashResponse.put("products", products);
-            hashResponse.put("status", "OK");
-            hashResponse.put("handled_by", hostname);
+        var products = new ArrayList<Product>(
+                productRepository.findAll()
+                        .stream()
+                        .toList());
+        hashResponse.put("products", products);
+        hashResponse.put("status", "OK");
+        hashResponse.put("handled_by", hostname);
         return ResponseEntity.ok(hashResponse);
     }
 }
