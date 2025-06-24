@@ -40,7 +40,8 @@ services:
     ports:
       - "8081:8080"
     depends_on: 
-      - eureka-service
+      - eureka-service 
+      # original value was eureka-service
     networks: 
       - breakdown_network
   product-service: 
@@ -55,15 +56,25 @@ services:
     #   replicas: 2 
     # ports:
     #   - "8082:8080"
+    pull_policy: build
     depends_on: 
       - eureka-service
     networks: 
+      - breakdown_network
+  product-db: 
+    image: postgres
+    container_name: product-db
+    environment:
+      - POSTGRES_DB=ecommerce_db
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=password@2025
+    networks:
       - breakdown_network
   eureka-service: 
     image: lyvanna544/breakdown/eureka-server:latest
     build: 
       context: eureka-server
-    container_name:  eureka-service
+    container_name:  eureka-server
     environment: 
       - SERVER_PORT=8761
       - SPRING_PROFILES_ACTIVE=prod
