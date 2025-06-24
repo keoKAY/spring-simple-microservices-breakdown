@@ -27,7 +27,16 @@ public class ProductRestController {
     @PostMapping("/create-new")
     //@RequestBody ProductRequest request
     public ResponseEntity<String>createProduct(){
-        kafkaProducerService.sendMessage("New product has created! ");
+        //kafkaProducerService.sendMessage("New product has created! ");
+        ProductResponse newProduct = new ProductResponse(
+                UUID.randomUUID(),
+                "Product 1 ",
+                "Product Description",
+                33
+        );
+        kafkaProducerService.sendProductCreatedEvent(newProduct);
+
+
         return ResponseEntity.ok("Created a new product! ");
     }
     @GetMapping("/get-all")

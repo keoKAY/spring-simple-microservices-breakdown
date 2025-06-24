@@ -41,3 +41,8 @@ public class KafkaProducerService {
 }
 
 ```
+
+
+```bash
+yq eval --input-format=json --output-format=yaml '.' student.json
+```
