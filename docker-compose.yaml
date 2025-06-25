@@ -36,7 +36,7 @@ services:
     container_name:  user-service-cont 
     environment: 
       - SERVER_PORT=8080
-      - SPRING_PROFILES_ACTIVE=docker
+    #  - SPRING_PROFILES_ACTIVE=default
     ports:
       - "8081:8080"
     depends_on: 
@@ -134,6 +134,14 @@ services:
       KAFKA_CLUSTERS_0_BOOTSTRAPSERVERS: kafka:9092
     depends_on: 
       - kafka
+    networks:
+      - breakdown_network
+# for the distributed tracing 
+  zipkin: 
+    image: openzipkin/zipkin:latest
+    container_name: zipkin
+    ports:
+      - "9411:9411"
     networks:
       - breakdown_network
 volumes:

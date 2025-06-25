@@ -23,11 +23,9 @@ public class KafkaProducerService {
     public void sendMessage(String message){
         kafkaTemplate.send(TOPIC, message);
     }
-
     public void sendProductCreatedEvent(Product product){
         ObjectMapper mapper = new ObjectMapper();
         try {
-
             ProductEvent<Product> productEvent = ProductEvent.<Product>builder()
                     .data(product)
                     .eventName("New Product is created ! ")

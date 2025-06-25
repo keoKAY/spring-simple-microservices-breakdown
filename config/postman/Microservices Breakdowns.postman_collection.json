@@ -115,6 +115,15 @@
 					"request": {
 						"method": "POST",
 						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"productName\": \"Sport T-Shirt for sell \", \n    \"description\": \"from adidas shop , usa \", \n    \"price\": 110 \n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
 						"url": {
 							"raw": "{{api-gateway-url}}/api/v1/products/create-new",
 							"host": [
