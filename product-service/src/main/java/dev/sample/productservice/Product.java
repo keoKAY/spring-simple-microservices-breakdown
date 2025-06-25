@@ -7,12 +7,13 @@ import jakarta.persistence.Id;
 import lombok.Builder;
 import lombok.Data;
 
+import java.io.Serializable;
 import java.util.UUID;
 
 @Entity(name = "product_tbl")
 @Data
 
-public class Product {
+public class Product implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID id;

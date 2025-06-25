@@ -15,7 +15,8 @@ spring:
       server:
         git:
           uri: https://github.com/keoKAY/spring-micro-breakdowns-config-repo.git
-          default-label: main
+          default-label: redis-demo 
+          #main
           search-paths:
             - config
             - '{application}'
