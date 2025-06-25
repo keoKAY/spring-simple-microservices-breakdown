@@ -6,6 +6,47 @@ docker compose up --scale product-service=2 -d
 ```
 
 
-## PROBLEM notes 
+## Additional note 
+```bash 
+:8080/actuator/retries 
 
-* Caused by: org.springframework.web.client.HttpServerErrorException$InternalServerError: 500  on GET request for "http://config-server:8888/api_gateway/resilience": "{"timestamp":"2025-06-12T04:27:45.195+00:00","status":500,"error":"Internal Server Error","path":"/api_gateway/resilience"}"
+{
+  "retries": [
+    "product-service-cb",
+    "user-service-cb"
+  ]
+}
+
+
+curl http://localhost:8080/actuator/circuitbreakers
+
+{
+  "circuitBreakers": {
+    "product-service-cb": {
+      "failureRate": "0.0%",
+      "slowCallRate": "0.0%",
+      "failureRateThreshold": "60.0%",
+      "slowCallRateThreshold": "100.0%",
+      "bufferedCalls": 4,
+      "failedCalls": 0,
+      "slowCalls": 0,
+      "slowFailedCalls": 0,
+      "notPermittedCalls": 0,
+      "state": "CLOSED"
+    },
+    "user-service-cb": {
+      "failureRate": "-1.0%",
+      "slowCallRate": "-1.0%",
+      "failureRateThreshold": "50.0%",
+      "slowCallRateThreshold": "100.0%",
+      "bufferedCalls": 0,
+      "failedCalls": 0,
+      "slowCalls": 0,
+      "slowFailedCalls": 0,
+      "notPermittedCalls": 0,
+      "state": "CLOSED"
+    }
+  }
+}
+```
+

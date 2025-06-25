@@ -1,11 +1,11 @@
 spring:
   config:
-    import: "optional:configserver:http://localhost:8888"
+    import: "optional:configserver:http://config-server:8888"
   application:
     name: api-gateway
   cloud:
     config:
-      uri: http://localhost:8888
-      name: api-gateway
-      profile: docker
+      uri: http://config-server:8888
+      name: api_gateway
+      profile: resilience
       fail-fast: true
