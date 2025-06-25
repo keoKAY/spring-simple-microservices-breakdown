@@ -144,6 +144,14 @@ services:
       - "9411:9411"
     networks:
       - breakdown_network
+
+  redis: 
+    image: redis 
+    container_name: redis_cont 
+    ports:
+      - "6379:6379"
+    networks:
+      - breakdown_network
 volumes:
   vault-data: 
   vault-log: 

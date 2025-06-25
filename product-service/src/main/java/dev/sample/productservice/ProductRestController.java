@@ -1,6 +1,7 @@
 package dev.sample.productservice;
 
 import dev.sample.productservice.service.KafkaProducerService;
+import dev.sample.productservice.service.ProductService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
@@ -15,7 +16,7 @@ import java.util.stream.Collectors;
 @RequestMapping("/api/v1/products")
 @RequiredArgsConstructor
 public class ProductRestController {
-    private final ProductRepository productRepository;
+    private final ProductService productService;
 
     private final KafkaProducerService kafkaProducerService;
     @Value("${HOSTNAME:unknown}")
@@ -28,7 +29,7 @@ public class ProductRestController {
         product.setDescription(request.getDescription());
         product.setPrice(request.getPrice());
 
-        var savedProduct = productRepository.save(product);
+        var savedProduct = productService.saveProduct(product);
         kafkaProducerService.sendProductCreatedEvent(savedProduct);
         return ResponseEntity.ok(savedProduct);
     }
@@ -37,9 +38,10 @@ public class ProductRestController {
     public ResponseEntity<?> getAllProducts() {
         var hashResponse = new HashMap<String, Object>();
         var products = new ArrayList<Product>(
-                productRepository.findAll()
+                productService.getAllProducts()
                         .stream()
                         .toList());
+
         hashResponse.put("products", products);
         hashResponse.put("status", "OK");
         hashResponse.put("handled_by", hostname);
